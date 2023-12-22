@@ -21,10 +21,10 @@ class MainController extends Controller
     public function currency_update(Request $request, $currency_id)
     {
         $validated = $request->validate([
-            'exchangeRateToTenge' => 'required|numeric'
+            'exchange_rate_to_tenge' => 'required|numeric'
         ]);
         $currency = Currency::find($currency_id);
-        $currency->exchangeRateToTenge = $validated['exchangeRateToTenge'];
+        $currency->exchange_rate_to_tenge = $validated['exchange_rate_to_tenge'];
         $currency->save();
 
         return redirect()->route('main.index');
