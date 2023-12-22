@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
-use App\Models\Currency;
+use App\Models\{Currency, Wallet};
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -30,8 +30,10 @@ class MainController extends Controller
         return redirect()->route('main.index');
     }
 
-    public function index(){
+    public function index()
+    {
+        $wallets = Wallet::all();
         $currencyRates = Currency::all();
-        return view('main.index',compact('currencyRates'));
+        return view('main.index', compact('wallets', 'currencyRates'));
     }
 }
