@@ -17,28 +17,28 @@ class BaseCurrenciesAdded extends Migration
             array(
                 'name' => 'Tenge',
                 'symbol' => '₸',
-                'exchangeRateToTenge' => 1.0
+                'exchange_rate_to_tenge' => 1.0
             )
         );
         DB::table('currencies')->insert(
             array(
                 'name' => 'Dollar',
                 'symbol' => '$',
-                'exchangeRateToTenge' => 458.72
+                'exchange_rate_to_tenge' => 458.72
             )
         );
         DB::table('currencies')->insert(
             array(
                 'name' => 'Euro',
                 'symbol' => '€',
-                'exchangeRateToTenge' => 505.52
+                'exchange_rate_to_tenge' => 505.52
             )
         );
         DB::table('currencies')->insert(
             array(
                 'name' => 'Ruble',
                 'symbol' => '₽',
-                'exchangeRateToTenge' => 4.96
+                'exchange_rate_to_tenge' => 4.96
             )
         );
         
