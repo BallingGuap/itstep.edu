@@ -20,7 +20,7 @@ use App\Http\Controllers\MainController;
 
 Route::get('/', [MainController::class,'index'])->name('main.index');
 Route::get('/currency_edit/{currency_id}', [MainController::class,'currency_edit'])->name('main.currency_edit');//update: post
-Route::put('/currency_edit', [MainController::class,'currency_update'])->name('main.currency_update');//update: post
+Route::put('/currency_edit/{currency_id}', [MainController::class,'currency_update'])->name('main.currency_update');//update: post
 Route::get('/categories', [MainController::class,'categories'])->name('main.categories');
 
 Route::get('/incomes_category_create', [MainController::class,'incomes_create'])->name('main.incomes_create');//save: post
