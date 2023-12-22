@@ -15,14 +15,11 @@ use App\Http\Controllers\MainController;
 |
 */
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 5c67750efd2e71655368d710b7730d7bdb4da06b
 
 
 Route::get('/', [MainController::class,'index'])->name('main.index');
-Route::get('/currency_edit', [MainController::class,'currency_edit'])->name('main.currency_edit');//update: post
+Route::get('/currency_edit/{currency_id}', [MainController::class,'currency_edit'])->name('main.currency_edit');//update: post
 Route::put('/currency_edit', [MainController::class,'currency_update'])->name('main.currency_update');//update: post
 Route::get('/categories', [MainController::class,'categories'])->name('main.categories');
 
@@ -43,7 +40,7 @@ Route::get('/transfer_create', [WalletController::class,'transfer_create'])->nam
 Route::post('/transfer_create',[WalletController::class,'transfer_save'])->name('wallet.transfer_save');
 Route::get('/wallet/create',[WalletController::class,'create_wallet'])->name('wallet.create');//save random income
 Route::post('/wallet/create',[WalletController::class,'save_wallet'])->name('wallet.save');
-<<<<<<< HEAD
+
 
 
 
@@ -60,5 +57,4 @@ Route::post('/wallet/create',[WalletController::class,'save_wallet'])->name('wal
 //     return 'test';
 // });
 
-=======
->>>>>>> 5c67750efd2e71655368d710b7730d7bdb4da06b
+
