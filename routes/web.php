@@ -15,7 +15,6 @@ use App\Http\Controllers\MainController;
 |
 */
 
-<<<<<<< HEAD
 
 
 Route::get('/', [MainController::class,'index'])->name('main.index');
@@ -40,19 +39,3 @@ Route::get('/transfer_create', [WalletController::class,'transfer_create'])->nam
 Route::post('/transfer_create',[WalletController::class,'transfer_save'])->name('wallet.transfer_save');
 Route::get('/wallet/create',[WalletController::class,'create_wallet'])->name('wallet.create');//save random income
 Route::post('/wallet/create',[WalletController::class,'save_wallet'])->name('wallet.save');
-
-
-
-// Route::post('/posts/{post_id?}/attach_tag/',[PostController::class,'attach_tag'])->name('posts.attach_tag');
-
-
-
-=======
-Route::get('/', function () {
-    return 'test2';
-});
-
-Route::get('/test',function (){
-    return 'test';
-});
->>>>>>> f33a75273b09b3e27a033c68a3bf6ab59e7a3c3e
