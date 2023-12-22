@@ -12,7 +12,7 @@ class CurrenciesTableCreated extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->double('exchangeRateToTenge');
+            $table->double('exchange_rate_to_tenge');
             $table->tinyText('symbol');
         });
     }
