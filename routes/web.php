@@ -17,8 +17,9 @@ use App\Http\Controllers\MainController;
 
 
 
+
 Route::get('/', [MainController::class,'index'])->name('main.index');
-Route::get('/currency_edit', [MainController::class,'currency_edit'])->name('main.currency_edit');//update: post
+Route::get('/currency_edit/{currency_id}', [MainController::class,'currency_edit'])->name('main.currency_edit');//update: post
 Route::put('/currency_edit', [MainController::class,'currency_update'])->name('main.currency_update');//update: post
 Route::get('/categories', [MainController::class,'categories'])->name('main.categories');
 
@@ -42,6 +43,7 @@ Route::post('/wallet/create',[WalletController::class,'save_wallet'])->name('wal
 
 
 
+
 // Route::post('/posts/{post_id?}/attach_tag/',[PostController::class,'attach_tag'])->name('posts.attach_tag');
 
 
@@ -54,4 +56,5 @@ Route::post('/wallet/create',[WalletController::class,'save_wallet'])->name('wal
 // Route::get('/test',function (){
 //     return 'test';
 // });
+
 
