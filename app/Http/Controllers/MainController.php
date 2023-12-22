@@ -36,4 +36,13 @@ class MainController extends Controller
         $currencyRates = Currency::all();
         return view('main.index', compact('wallets', 'currencyRates'));
     }
+
+    public function outcomes_create()
+    {
+        return view('outcomes.create'); 
+    }
+    public function incomes_create()
+    {
+        return view('incomes.create'); 
+    }
 }
