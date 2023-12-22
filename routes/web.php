@@ -15,7 +15,6 @@ use App\Http\Controllers\MainController;
 |
 */
 
-<<<<<<< HEAD
 
 
 Route::get('/', [MainController::class,'index'])->name('main.index');
@@ -46,13 +45,3 @@ Route::post('/wallet/create',[WalletController::class,'save_wallet'])->name('wal
 // Route::post('/posts/{post_id?}/attach_tag/',[PostController::class,'attach_tag'])->name('posts.attach_tag');
 
 
-
-=======
-Route::get('/', function () {
-    return 'test2';
-});
-
-Route::get('/test',function (){
-    return 'test';
-});
->>>>>>> f33a75273b09b3e27a033c68a3bf6ab59e7a3c3e
