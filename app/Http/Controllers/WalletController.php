@@ -5,15 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\{Currency, Wallet};
-use App\Models\{Currency, Wallet};
 
 class WalletController extends Controller
 {
-    public function create_wallet()
-    {
-        $currencies = Currency::all();
-        return view('wallet.create', compact('$currencies'));
-    }
 
     public function wallet_main($id)
     {
@@ -28,10 +22,6 @@ class WalletController extends Controller
         return view('wallet.transfer.create', compact('wallets')); 
     }
 
-    public function wallet_main(){
-        return 'wallet_main';
-    }
-    
 
     public function create_wallet(){
         $currencies = Currency::all();
