@@ -17,4 +17,8 @@ class Wallet extends Model
     {
         return $this->hasMany(Income::class);
     }
+    public function outcomes()
+    {
+        return $this->hasMany(Outcome::class);
+    }
 }
