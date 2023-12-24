@@ -11,7 +11,7 @@
         
         <div class="mb-4">
             <label for="exchange_rate" class="block text-sm font-medium text-gray-600">Новый курс для {{ $currency->symbol }}</label>
-            <input type="text" name="exchangeRateToTenge" id="exchange_rate" value="{{ $currency->exchangeRateToTenge }}" class="mt-1 p-2 border rounded-md w-full" required>
+            <input type="text" name="exchange_rate_to_tenge" id="exchange_rate" value="{{ $currency->exchange_rate_to_tenge }}" class="mt-1 p-2 border rounded-md w-full" required>
         </div>
 
         <div class="flex items-center">

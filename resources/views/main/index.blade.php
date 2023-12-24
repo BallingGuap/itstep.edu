@@ -14,8 +14,8 @@
                 @foreach($wallets as $wallet)
                     <li class="bg-blue-100 p-4 rounded-md shadow-md">
                         <span class="font-bold text-lg">{{ $wallet->name }}</span> 
-                        <p class="text-gray-500">{{ $wallet->currency }}</p>
-                        <a href="{{ route('main.wallet_details', ['wallet_id' => $wallet->id]) }}" class="text-blue-500 hover:underline">Подробнее</a>
+                        <p class="text-black-500 pb-4">Валюта кошелька: {{ $wallet->currency->symbol }}</p>
+                        <a href="{{ route('wallet.main', ['id' => $wallet->id]) }}" class="text-blue-500 hover:underline">Подробнее</a>
                         <button class="bg-green-500 text-white px-2 py-1 rounded-md ml-2" onclick="generateOperation({{ $wallet->id }})">Генерировать операцию</button>
                     </li>
                 @endforeach
@@ -42,7 +42,7 @@
                         <tr>
                             <td class="py-2 px-6 border-b">{{ $rate->name }}</td>
                             <td class="py-2 px-6 border-b">{{ $rate->symbol }}</td>
-                            <td class="py-2 px-6 border-b">{{ $rate->exchangeRateToTenge }}</td>
+                            <td class="py-2 px-6 border-b">{{ $rate->exchange_rate_to_tenge }}</td>
                             <td class="py-2 px-6 border-b">
                                 <a href="{{ route('main.currency_edit', ['currency_id' => $rate->id]) }}" class="text-blue-500 hover:underline">Изменить курс</a>
                             </td>
