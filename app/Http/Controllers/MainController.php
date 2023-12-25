@@ -15,7 +15,7 @@ class MainController extends Controller
     public function currency_edit($currency_id)
     {
         $currency = Currency::findOrFail($currency_id);
-        return view('main.currency_edit',compact('currency'));
+        return view('main.currency_edit', compact('currency'));
     }
 
     public function currency_update(Request $request, $currency_id)
@@ -35,6 +35,14 @@ class MainController extends Controller
         $wallets = Wallet::all();
         $currencyRates = Currency::all();
         return view('main.index', compact('wallets', 'currencyRates'));
+    }
+
+    public function categories()
+    {
+
+        $incomeCategories = IncomeCategory::all();
+        $outcomeCategories = OutcomeCategory::all();
+        return view('main.categories_view', compact('incomeCategories', 'outcomeCategories'));
     }
 
     public function outcomes_create()
@@ -57,7 +65,7 @@ class MainController extends Controller
         $income_category->updated_at = date("Y-m-d H:i:s");;
 
         $income_category->save();
-        return redirect()->route('main.index');
+        return redirect()->route('main.categories_view');
     }
 
     public function outcomes_save(Request $request){
@@ -71,7 +79,7 @@ class MainController extends Controller
         $outcome_category->updated_at = date("Y-m-d H:i:s");;
 
         $outcome_category->save();
-        return redirect()->route('main.index');
+        return redirect()->route('main.categories_view');
     }
 
 }
