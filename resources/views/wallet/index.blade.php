@@ -22,12 +22,12 @@
                     </form>
                 </li>
             </ul>
+            <div class="row">
+                <div class="card chart-container col-4">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="card chart-container col-4">
-        <canvas id="chart"></canvas>
     </div>
 </div>
 @endsection

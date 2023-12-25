@@ -27,7 +27,7 @@ class WalletController extends Controller
         $incomeTotals = $incomeTotalsWithCategory->toArray();
         $outcomeTotals = $outcomeTotalsWithCategory->toArray();
 
-        return view('wallet.index', compact('currencies', 'totalIncome', 'totalOutcome', '$incomeTotalsWithCategory', '$outcomeTotalsWithCategory'));
+        return view('wallet.index', compact('currencies','wallet', 'totalIncome', 'totalOutcome', 'incomeTotalsWithCategory', 'outcomeTotalsWithCategory'));
     }
 
     public function transfer_create($current_wallet_id)
