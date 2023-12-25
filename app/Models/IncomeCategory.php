@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class IncomeCategory extends Model
 {
     use HasFactory;
+    public function incomes()
+    {
+        return $this->hasMany('App\Models\Income','income_category_id','id');
+    }
 }
