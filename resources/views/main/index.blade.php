@@ -2,20 +2,9 @@
 
 @section('content')
 
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
-
 <div class="container mx-auto bg-white p-8 mt-8">
     <h1 class="text-3xl font-bold mb-4">Кошельки пользователя</h1>
+
 
     <div class="mb-8">
         @if($wallets->isEmpty())
@@ -26,9 +15,19 @@
                 @foreach($wallets as $wallet)
                     <li class="bg-blue-100 p-4 rounded-md shadow-md">
                         <span class="font-bold text-lg">{{ $wallet->name }}</span> 
-                        <p class="text-black-500 pb-4">Баланс кошелька: {{ $wallet->balance }} {{ $wallet->currency->symbol }}</p>
+                        <p class="text-black-500 pb-4">Валюта кошелька: {{ $wallet->currency->symbol }}</p>
+                        <p class="text-black-500 pb-4">Баланс кошелька: {{ $wallet->balance }}</p>
                         <a href="{{ route('wallet.main', ['id' => $wallet->id]) }}" class="text-blue-500 hover:underline">Подробнее</a>
-                        <button class="bg-green-500 text-white px-2 py-1 rounded-md ml-2" onclick="generateOperation({{ $wallet->id }})">Генерировать операцию</button>
+                        <form action="{{ route('wallet.save_random_income', ['wallet_id' => $wallet->id]) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="bg-green-500 text-white px-2 py-1 rounded-md ml-2">Генерировать доход</button>
+                        </form>
+                        
+                        <!-- Форма для генерации случайного расхода -->
+                        <form action="{{ route('wallet.save_random_outcome', ['wallet_id' => $wallet->id]) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-md ml-2">Генерировать расход</button>
+                        </form>
                     </li>
                 @endforeach
             </ul>

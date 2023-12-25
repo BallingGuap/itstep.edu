@@ -18,19 +18,19 @@ use App\Http\Controllers\MainController;
 
 
 
-Route::get('/', [MainController::class,'index'])->name('main.index');
-Route::get('/currency_edit/{currency_id}', [MainController::class,'currency_edit'])->name('main.currency_edit');//update: post
-Route::put('/currency_edit/{currency_id}', [MainController::class,'currency_update'])->name('main.currency_update');//update: post
-Route::get('/categories', [MainController::class,'categories'])->name('main.categories');
+Route::get('/', [MainController::class,'index'])->name('main.index');//✓
+Route::get('/currency_edit/{currency_id}', [MainController::class,'currency_edit'])->name('main.currency_edit');//update: post//✓
+Route::put('/currency_edit/{currency_id}', [MainController::class,'currency_update'])->name('main.currency_update');//update: post//✓
+Route::get('/categories', [MainController::class,'categories'])->name('main.categories');//✓
 
-Route::get('/incomes_category_create', [MainController::class,'incomes_create'])->name('main.incomes_create');//save: post
-Route::get('/outcomes_category_create', [MainController::class,'outcomes_create'])->name('main.outcomes_create');
-Route::post('/incomes_category_create', [MainController::class,'incomes_save'])->name('main.incomes_save');//save: post
-Route::post('/outcomes_category_create', [MainController::class,'outcomes_save'])->name('main.outcomes_save');
+Route::get('/incomes_category_create', [MainController::class,'incomes_create'])->name('main.incomes_create');//save: post//✓
+Route::get('/outcomes_category_create', [MainController::class,'outcomes_create'])->name('main.outcomes_create');//✓
+Route::post('/incomes_category_create', [MainController::class,'incomes_save'])->name('main.incomes_save');//save: post//✓
+Route::post('/outcomes_category_create', [MainController::class,'outcomes_save'])->name('main.outcomes_save');//✓
 
 
-Route::post('/income_random_create/{wallet_id}',[WalletController::class,'save_random_income'])->name('wallet.save_random_income');//save random income
-Route::post('/outcome_random_create/{wallet_id}',[WalletController::class,'save_random_outcome'])->name('wallet.save_random_outcome');//save random outcome
+Route::post('/income_random_create/{wallet_id}',[WalletController::class,'save_random_income'])->name('wallet.save_random_income');//save random income//✓
+Route::post('/outcome_random_create/{wallet_id}',[WalletController::class,'save_random_outcome'])->name('wallet.save_random_outcome');//save random outcome//✓
 
 
 
