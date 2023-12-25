@@ -35,15 +35,31 @@ class WalletController extends Controller
         if($current_wallet->balance - $validated['sum'] >=0 ){
             $to_wallet = Wallet::find($validated['wallet_id']);
             $current_wallet->balance -= $validated['sum'];
-            if($current_wallet_currency->symbol == $to_wallet->currency->symbol)
-                $to_wallet->balance += $validated['sum'];
-                else {
-                    $tenge_amount = $validated['sum'] * $current_wallet_currency->exchange_rate_to_tenge;
-                    $converted_amount = $tenge_amount / $to_wallet->currency->exchange_rate_to_tenge;
+
+            $outcome = new Outcome();
+            $outcome->outcome_category_id = 1;
+            $outcome->wallet_id = $current_wallet->id;
+            $outcome->amount = $validated['sum'];
         
-                    $to_wallet->balance += $converted_amount;
-                }
             
+            $income = new Income();
+            $income->income_category_id = 1;
+            $income->wallet_id = $to_wallet->id;
+
+            if($current_wallet_currency->symbol == $to_wallet->currency->symbol){
+                $to_wallet->balance += $validated['sum'];
+                $income->amount = $validated['sum'];
+            }
+            else {
+                $tenge_amount = $validated['sum'] * $current_wallet_currency->exchange_rate_to_tenge;
+                $converted_amount = $tenge_amount / $to_wallet->currency->exchange_rate_to_tenge;
+        
+                $to_wallet->balance += $converted_amount;
+                $income->amount = $converted_amount;
+            }
+
+            $outcome->save();
+            $income->save();
             $current_wallet->save();
             $to_wallet->save();
             return redirect()->route('main.index')->with('error', 'Перевод произведен успешно');
@@ -79,27 +95,39 @@ class WalletController extends Controller
         $wallet = Wallet::findOrFail($wallet_id);
         $currentBalance = $wallet->balance;
         $randomAmount = random_int(1, $currentBalance);
-        $randomCategory = OutcomeCategory::inRandomOrder()->first();
+        $wallet->balance -= $randomAmount;
+        $randomCategory = OutcomeCategory::where('id', '!=', 1)->inRandomOrder()->first();
         $outcome = new Outcome;
-        $outcome->outcome_category_id = $randomCategory->id;
+        $categoryId = 0;
+        if ($randomCategory) {
+            $categoryId = $randomCategory->id;
+        }
+        $outcome->outcome_category_id =   $categoryId;
         $outcome->wallet_id = $wallet_id;
         $outcome->amount = $randomAmount;
         $outcome->save();
+        $wallet->save();
         return redirect()->route('main.index');
     }
 
 
     
-    public function save_random_icome($wallet_id){
+    public function save_random_income($wallet_id){
         $wallet = Wallet::findOrFail($wallet_id);
         $currentBalance = $wallet->balance;
         $randomAmount = random_int(1, $currentBalance*2);//спорный момент, сделал неуточняя
-        $randomCategory = IncomeCategory::inRandomOrder()->first();
+        $wallet->balance += $randomAmount;
+        $randomCategory = IncomeCategory::where('id', '!=', 1)->inRandomOrder()->first();
         $income = new Income;
-        $income->income_category_id = $randomCategory->id;
+        $categoryId = 0;
+        if ($randomCategory) {
+            $categoryId = $randomCategory->id;
+        }
+        $income->income_category_id = $categoryId;
         $income->wallet_id = $wallet_id;
         $income->amount = $randomAmount;
         $income->save();
+        $wallet->save();
         return redirect()->route('main.index');
     }
 
