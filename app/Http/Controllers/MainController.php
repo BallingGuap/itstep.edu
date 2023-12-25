@@ -65,7 +65,7 @@ class MainController extends Controller
         $income_category->updated_at = date("Y-m-d H:i:s");;
 
         $income_category->save();
-        return redirect()->route('main.categories_view');
+        return redirect()->route('main.categories');
     }
 
     public function outcomes_save(Request $request){
@@ -79,7 +79,7 @@ class MainController extends Controller
         $outcome_category->updated_at = date("Y-m-d H:i:s");;
 
         $outcome_category->save();
-        return redirect()->route('main.categories_view');
+        return redirect()->route('main.categories');
     }
 
 }

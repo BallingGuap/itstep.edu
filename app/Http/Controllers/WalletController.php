@@ -22,7 +22,6 @@ class WalletController extends Controller
         return view('wallet.transfer.create', compact('wallets')); 
     }
 
-
     public function create_wallet(){
         $currencies = Currency::all();
         return view('wallet.create_wallet',compact('currencies'));
