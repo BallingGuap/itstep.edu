@@ -4,6 +4,7 @@
 
 <div class="container mx-auto bg-white p-8 mt-8">
     <h1 class="text-3xl font-bold mb-4">Кошельки пользователя</h1>
+    <button id="randomButton" class="btn btn-primary random-button" onclick="generateRandomColor()">Random Button</button>
 
     <div class="mb-8">
         @if($wallets->isEmpty())

@@ -19,7 +19,7 @@ class WalletController extends Controller
     public function transfer_create($current_wallet_id)
     {
         $wallets = Wallet::where('id', '!=', $current_wallet_id)->get(); 
-        return view('wallet.transfer.create', compact('wallets')); 
+        return view('wallet.transfer_create', compact('wallets')); 
     }
 
     public function create_wallet(){
