@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use App\Models\{Currency, Wallet, OutcomeCategory, IncomeCategory};
+use App\Models\{Currency, Wallet, OutcomeCategory, IncomeCategory, Outcome, Income};
 
 class WalletController extends Controller
 {
@@ -75,18 +75,33 @@ class WalletController extends Controller
     }
 
 
-    // public function save_random_outcome($wallet_id){
-    //     $wallet = Wallet::findOrFail($wallet_id);
-    //     $currentBalance = $wallet->balance;
-    //     $randomAmount = random_int(1, $currentBalance);
-    //     $randomCategory = OutcomeCategory::inRandomOrder()->first();
-    //     $outcome = new Outcome;
-    //     $outcome->outcome_category_id = $randomCategory->id;
-    //     $outcome->wallet_id = $wallet_id;
-    //     $outcome->amount = $randomAmount;
-    //     $outcome->save();
+    public function save_random_outcome($wallet_id){
+        $wallet = Wallet::findOrFail($wallet_id);
+        $currentBalance = $wallet->balance;
+        $randomAmount = random_int(1, $currentBalance);
+        $randomCategory = OutcomeCategory::inRandomOrder()->first();
+        $outcome = new Outcome;
+        $outcome->outcome_category_id = $randomCategory->id;
+        $outcome->wallet_id = $wallet_id;
+        $outcome->amount = $randomAmount;
+        $outcome->save();
+        return redirect()->route('main.index');
+    }
 
-    // }
+
+    
+    public function save_random_icome($wallet_id){
+        $wallet = Wallet::findOrFail($wallet_id);
+        $currentBalance = $wallet->balance;
+        $randomAmount = random_int(1, $currentBalance*2);//спорный момент, сделал неуточняя
+        $randomCategory = IncomeCategory::inRandomOrder()->first();
+        $income = new Income;
+        $income->income_category_id = $randomCategory->id;
+        $income->wallet_id = $wallet_id;
+        $income->amount = $randomAmount;
+        $income->save();
+        return redirect()->route('main.index');
+    }
 
 
 
