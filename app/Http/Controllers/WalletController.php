@@ -12,8 +12,8 @@ class WalletController extends Controller
     public function wallet_main($id)
     {
         $wallet = Wallet::findOrFail($id);
-        $currencies = Currency::all(); 
-        return view('wallet.index', compact('currencies')); 
+        //$currencies = Currency::all(); 
+        return view('wallet.index', compact('wallet')); 
     }
 
     public function transfer_create($current_wallet_id)
