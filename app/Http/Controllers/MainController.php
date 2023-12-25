@@ -59,13 +59,19 @@ class MainController extends Controller
             'name' => 'required'
         ]);
 
+        $existingCategory = IncomeCategory::where('name', $validated['name'])->first();
+
+        if ($existingCategory) {
+            return redirect()->route('main.categories')->with('error', 'Такая категория уже существует');
+        }
+
         $income_category = new IncomeCategory();
         $income_category->name = $validated['name'];
         $income_category->created_at = date("Y-m-d H:i:s");;
         $income_category->updated_at = date("Y-m-d H:i:s");;
 
         $income_category->save();
-        return redirect()->route('main.categories');
+        return redirect()->route('main.categories')->with('success', 'Категория добавлена');;
     }
 
     public function outcomes_save(Request $request){
@@ -73,13 +79,19 @@ class MainController extends Controller
             'name' => 'required'
         ]);
 
+        $existingCategory = OutcomeCategory::where('name', $validated['name'])->first();
+
+        if ($existingCategory) {
+            return redirect()->route('main.categories')->with('error', 'Такая категория уже существует');
+        }
+
         $outcome_category = new OutcomeCategory();
         $outcome_category->name = $validated['name'];
         $outcome_category->created_at = date("Y-m-d H:i:s");;
         $outcome_category->updated_at = date("Y-m-d H:i:s");;
 
         $outcome_category->save();
-        return redirect()->route('main.categories');
+        return redirect()->route('main.categories')->with('success', 'Категория добавлена');;
     }
 
 }
