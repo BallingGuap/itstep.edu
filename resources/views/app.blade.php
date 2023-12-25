@@ -10,8 +10,10 @@
     
 </head>
 <body class="flex flex-col body_bg min-h-screen">
+    @include('includes/header')
     @yield('content')
 </body>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 @stack('chart-scripts')

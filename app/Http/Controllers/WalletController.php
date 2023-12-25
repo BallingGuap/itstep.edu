@@ -12,20 +12,33 @@ class WalletController extends Controller
     public function wallet_main($id)
     {
         $wallet = Wallet::findOrFail($id);
-        //$currencies = Currency::all(); 
-        $totalIncome =  $wallet->incomes->sum('amount');
-        $totalOutcome = $wallet->outcomes->sum('amount');
-        return view('wallet.index', compact('wallet', 'totalIncome', 'totalOutcome')); 
+        $currencies = Currency::all();
+        $incomes =   $wallet->incomes()->with('category')->get();
+        $outcomes =  $wallet->outcomes()->with('category')->get();
+        $totalIncome  =  $incomes->sum('amount');
+        $totalOutcome = $outcomes->sum('amount');
+
+        $incomeTotalsWithCategory = $incomes->groupBy('category.name')->map(function ($items) {
+            return $items->sum('amount');
+        });
+        $outcomeTotalsWithCategory = $outcomes->groupBy('category.name')->map(function ($items) {
+            return $items->sum('amount');
+        });
+        $incomeTotals = $incomeTotalsWithCategory->toArray();
+        $outcomeTotals = $outcomeTotalsWithCategory->toArray();
+
+        return view('wallet.index', compact('currencies', 'totalIncome', 'totalOutcome', '$incomeTotalsWithCategory', '$outcomeTotalsWithCategory'));
     }
 
     public function transfer_create($current_wallet_id)
     {
-        $wallets = Wallet::where('id', '!=', $current_wallet_id)->get(); 
+        $wallets = Wallet::where('id', '!=', $current_wallet_id)->get();
         $current_wallet = Wallet::find($current_wallet_id);
-        return view('wallet.transfer_create', compact('wallets', 'current_wallet')); 
+        return view('wallet.transfer_create', compact('wallets', 'current_wallet'));
     }
 
-    public function transfer_save(Request $request, $current_wallet_id){
+    public function transfer_save(Request $request, $current_wallet_id)
+    {
         $validated = $request->validate([
             'wallet_id' => 'required',
             'sum' => 'required|numeric'
@@ -34,7 +47,7 @@ class WalletController extends Controller
         $current_wallet = Wallet::find($current_wallet_id);
         $current_wallet_currency = $current_wallet->currency;
 
-        if($current_wallet->balance - $validated['sum'] >=0 ){
+        if ($current_wallet->balance - $validated['sum'] >= 0) {
             $to_wallet = Wallet::find($validated['wallet_id']);
             $current_wallet->balance -= $validated['sum'];
 
@@ -42,20 +55,19 @@ class WalletController extends Controller
             $outcome->outcome_category_id = 1;
             $outcome->wallet_id = $current_wallet->id;
             $outcome->amount = $validated['sum'];
-        
-            
+
+
             $income = new Income();
             $income->income_category_id = 1;
             $income->wallet_id = $to_wallet->id;
 
-            if($current_wallet_currency->symbol == $to_wallet->currency->symbol){
+            if ($current_wallet_currency->symbol == $to_wallet->currency->symbol) {
                 $to_wallet->balance += $validated['sum'];
                 $income->amount = $validated['sum'];
-            }
-            else {
+            } else {
                 $tenge_amount = $validated['sum'] * $current_wallet_currency->exchange_rate_to_tenge;
                 $converted_amount = $tenge_amount / $to_wallet->currency->exchange_rate_to_tenge;
-        
+
                 $to_wallet->balance += $converted_amount;
                 $income->amount = $converted_amount;
             }
@@ -65,18 +77,19 @@ class WalletController extends Controller
             $current_wallet->save();
             $to_wallet->save();
             return redirect()->route('main.index')->with('error', 'Перевод произведен успешно');
-        }
-        else{
+        } else {
             return redirect()->route('main.index')->with('error', 'Сумма слишком большая');
         }
     }
 
-    public function create_wallet(){
+    public function create_wallet()
+    {
         $currencies = Currency::all();
-        return view('wallet.create_wallet',compact('currencies'));
+        return view('wallet.create_wallet', compact('currencies'));
     }
 
-    public function save_wallet(Request $request){
+    public function save_wallet(Request $request)
+    {
         $validated = $request->validate([
             'name' => 'required',
             'currency_id' => 'required|numeric',
@@ -93,7 +106,8 @@ class WalletController extends Controller
     }
 
 
-    public function save_random_outcome($wallet_id){
+    public function save_random_outcome($wallet_id)
+    {
         $wallet = Wallet::findOrFail($wallet_id);
         $currentBalance = $wallet->balance;
         $randomAmount = random_int(1, $currentBalance);
@@ -104,7 +118,7 @@ class WalletController extends Controller
         if ($randomCategory) {
             $categoryId = $randomCategory->id;
         }
-        $outcome->outcome_category_id =   $categoryId;
+        $outcome->outcome_category_id = $categoryId;
         $outcome->wallet_id = $wallet_id;
         $outcome->amount = $randomAmount;
         $outcome->save();
@@ -113,11 +127,12 @@ class WalletController extends Controller
     }
 
 
-    
-    public function save_random_income($wallet_id){
+
+    public function save_random_income($wallet_id)
+    {
         $wallet = Wallet::findOrFail($wallet_id);
         $currentBalance = $wallet->balance;
-        $randomAmount = random_int(1, $currentBalance*2);//спорный момент, сделал неуточняя
+        $randomAmount = random_int(1, $currentBalance * 2); //спорный момент, сделал неуточняя
         $wallet->balance += $randomAmount;
         $randomCategory = IncomeCategory::where('id', '!=', 1)->inRandomOrder()->first();
         $income = new Income;
