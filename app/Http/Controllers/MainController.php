@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
-use App\Models\{Currency, Wallet};
+use App\Models\{Currency, Wallet, IncomeCategory, OutcomeCategory};
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -39,10 +39,39 @@ class MainController extends Controller
 
     public function outcomes_create()
     {
-        return view('outcomes.create'); 
+        return view('main.outcomes_create'); 
     }
     public function incomes_create()
     {
-        return view('incomes.create'); 
+        return view('main.incomes_create'); 
     }
+
+    public function incomes_save(Request $request){
+        $validated = $request->validate([
+            'name' => 'required'
+        ]);
+
+        $income_category = new IncomeCategory();
+        $income_category->name = $validated['name'];
+        $income_category->created_at = date("Y-m-d H:i:s");;
+        $income_category->updated_at = date("Y-m-d H:i:s");;
+
+        $income_category->save();
+        return redirect()->route('main.index');
+    }
+
+    public function outcomes_save(Request $request){
+        $validated = $request->validate([
+            'name' => 'required'
+        ]);
+
+        $outcome_category = new OutcomeCategory();
+        $outcome_category->name = $validated['name'];
+        $outcome_category->created_at = date("Y-m-d H:i:s");;
+        $outcome_category->updated_at = date("Y-m-d H:i:s");;
+
+        $outcome_category->save();
+        return redirect()->route('main.index');
+    }
+
 }
