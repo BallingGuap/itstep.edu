@@ -16,6 +16,7 @@
                     <li class="bg-blue-100 p-4 rounded-md shadow-md">
                         <span class="font-bold text-lg">{{ $wallet->name }}</span> 
                         <p class="text-black-500 pb-4">Валюта кошелька: {{ $wallet->currency->symbol }}</p>
+                        <p class="text-black-500 pb-4">Баланс кошелька: {{ $wallet->balance }}</p>
                         <a href="{{ route('wallet.main', ['id' => $wallet->id]) }}" class="text-blue-500 hover:underline">Подробнее</a>
                         <form action="{{ route('wallet.save_random_income', ['wallet_id' => $wallet->id]) }}" method="POST" style="display:inline;">
                             @csrf
