@@ -2,6 +2,18 @@
 
 @section('content')
 
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 <div class="container mx-auto bg-white p-8 mt-8">
     <h1 class="text-3xl font-bold mb-4">Кошельки пользователя</h1>
 
