@@ -13,7 +13,9 @@ class WalletController extends Controller
     {
         $wallet = Wallet::findOrFail($id);
         //$currencies = Currency::all(); 
-        return view('wallet.index', compact('wallet')); 
+        $totalIncome =  $wallet->incomes->sum('amount');
+        $totalOutcome = $wallet->outcomes->sum('amount');
+        return view('wallet.index', compact('wallet', 'totalIncome', 'totalOutcome')); 
     }
 
     public function transfer_create($current_wallet_id)
@@ -96,9 +98,13 @@ class WalletController extends Controller
         $currentBalance = $wallet->balance;
         $randomAmount = random_int(1, $currentBalance);
         $wallet->balance -= $randomAmount;
-        $randomCategory = OutcomeCategory::inRandomOrder()->first();
+        $randomCategory = OutcomeCategory::where('id', '!=', 1)->inRandomOrder()->first();
         $outcome = new Outcome;
-        $outcome->outcome_category_id = $randomCategory->id;
+        $categoryId = 0;
+        if ($randomCategory) {
+            $categoryId = $randomCategory->id;
+        }
+        $outcome->outcome_category_id =   $categoryId;
         $outcome->wallet_id = $wallet_id;
         $outcome->amount = $randomAmount;
         $outcome->save();
@@ -113,9 +119,13 @@ class WalletController extends Controller
         $currentBalance = $wallet->balance;
         $randomAmount = random_int(1, $currentBalance*2);//спорный момент, сделал неуточняя
         $wallet->balance += $randomAmount;
-        $randomCategory = IncomeCategory::inRandomOrder()->first();
+        $randomCategory = IncomeCategory::where('id', '!=', 1)->inRandomOrder()->first();
         $income = new Income;
-        $income->income_category_id = $randomCategory->id;
+        $categoryId = 0;
+        if ($randomCategory) {
+            $categoryId = $randomCategory->id;
+        }
+        $income->income_category_id = $categoryId;
         $income->wallet_id = $wallet_id;
         $income->amount = $randomAmount;
         $income->save();
