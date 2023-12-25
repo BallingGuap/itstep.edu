@@ -27,6 +27,7 @@
                     <li class="bg-blue-100 p-4 rounded-md shadow-md">
                         <span class="font-bold text-lg">{{ $wallet->name }}</span> 
                         <p class="text-black-500 pb-4">Валюта кошелька: {{ $wallet->currency->symbol }}</p>
+                        <p class="text-black-500 pb-4">Баланс кошелька: {{ $wallet->balance }}</p>
                         <a href="{{ route('wallet.main', ['id' => $wallet->id]) }}" class="text-blue-500 hover:underline">Подробнее</a>
                         <button class="bg-green-500 text-white px-2 py-1 rounded-md ml-2" onclick="generateOperation({{ $wallet->id }})">Генерировать операцию</button>
                     </li>
