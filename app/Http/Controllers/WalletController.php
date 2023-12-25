@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use App\Models\{Currency, Wallet};
+use App\Models\{Currency, Wallet, OutcomeCategory, IncomeCategory};
 
 class WalletController extends Controller
 {
@@ -16,9 +16,9 @@ class WalletController extends Controller
         return view('wallet.index', compact('currencies')); 
     }
 
-    public function transfer_create()
+    public function transfer_create($current_wallet_id)
     {
-        $wallets = Wallet::all(); 
+        $wallets = Wallet::where('id', '!=', $current_wallet_id)->get(); 
         return view('wallet.transfer.create', compact('wallets')); 
     }
 
@@ -42,6 +42,20 @@ class WalletController extends Controller
         $wallet->save();
         return redirect()->route('main.index');
     }
+
+
+    // public function save_random_outcome($wallet_id){
+    //     $wallet = Wallet::findOrFail($wallet_id);
+    //     $currentBalance = $wallet->balance;
+    //     $randomAmount = random_int(1, $currentBalance);
+    //     $randomCategory = OutcomeCategory::inRandomOrder()->first();
+    //     $outcome = new Outcome;
+    //     $outcome->outcome_category_id = $randomCategory->id;
+    //     $outcome->wallet_id = $wallet_id;
+    //     $outcome->amount = $randomAmount;
+    //     $outcome->save();
+
+    // }
 
 
 
