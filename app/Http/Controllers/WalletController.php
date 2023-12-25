@@ -24,8 +24,8 @@ class WalletController extends Controller
         $outcomeTotalsWithCategory = $outcomes->groupBy('category.name')->map(function ($items) {
             return $items->sum('amount');
         });
-        $incomeTotals = $incomeTotalsWithCategory->toArray();
-        $outcomeTotals = $outcomeTotalsWithCategory->toArray();
+        $incomeTotalsWithCategory = $incomeTotalsWithCategory->toArray();
+        $outcomeTotalsWithCategory = $outcomeTotalsWithCategory->toArray();
 
         return view('wallet.index', compact('currencies','wallet', 'totalIncome', 'totalOutcome', 'incomeTotalsWithCategory', 'outcomeTotalsWithCategory'));
     }
