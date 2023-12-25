@@ -54,7 +54,7 @@ class WalletController extends Controller
         $outcome->wallet_id = $wallet_id;
         $outcome->amount = $randomAmount;
         $outcome->save();
-
+        return redirect()->route('main.index');
     }
 
 
@@ -69,7 +69,7 @@ class WalletController extends Controller
         $income->wallet_id = $wallet_id;
         $income->amount = $randomAmount;
         $income->save();
-
+        return redirect()->route('main.index');
     }
 
 
