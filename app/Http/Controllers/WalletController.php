@@ -58,7 +58,6 @@ class WalletController extends Controller
                 $income->amount = $converted_amount;
             }
 
-                
             $outcome->save();
             $income->save();
             $current_wallet->save();
