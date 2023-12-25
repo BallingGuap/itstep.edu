@@ -25,39 +25,11 @@
         </div>
     </div>
 </div>
-@endsection
-
-
-
-
-
-@extends('app')
-
-@section('content')
-
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
+<div class="row">
+    <div class="card chart-container col-4">
+        <canvas id="chart"></canvas>
     </div>
-@endif
-
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
-
-<div class="container mx-auto bg-white p-8 mt-8">
-    wallet info
-    <div class="row">
-        <div class="card chart-container col-4">
-            <canvas id="chart"></canvas>
-        </div>
-    </div>
-
-
 </div>
-
 @endsection
 
 @push('chart-scripts')
