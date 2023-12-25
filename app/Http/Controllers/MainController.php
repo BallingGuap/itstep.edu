@@ -39,7 +39,6 @@ class MainController extends Controller
 
     public function categories()
     {
-
         $incomeCategories = IncomeCategory::all();
         $outcomeCategories = OutcomeCategory::all();
         return view('main.categories_view', compact('incomeCategories', 'outcomeCategories'));
