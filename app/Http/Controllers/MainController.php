@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
-use App\Models\{Currency, Wallet};
+use App\Models\{Currency, Wallet, IncomeCategory, OutcomeCategory};
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -15,7 +15,7 @@ class MainController extends Controller
     public function currency_edit($currency_id)
     {
         $currency = Currency::findOrFail($currency_id);
-        return view('main.currency_edit',compact('currency'));
+        return view('main.currency_edit', compact('currency'));
     }
 
     public function currency_update(Request $request, $currency_id)
@@ -37,12 +37,20 @@ class MainController extends Controller
         return view('main.index', compact('wallets', 'currencyRates'));
     }
 
+    public function categories()
+    {
+
+        $incomeCategories = IncomeCategory::all();
+        $outcomeCategories = OutcomeCategory::all();
+        return view('main.categories_view', compact('incomeCategories', 'outcomeCategories'));
+    }
+
     public function outcomes_create()
     {
-        return view('outcomes.create'); 
+        return view('outcomes.create');
     }
     public function incomes_create()
     {
-        return view('incomes.create'); 
+        return view('incomes.create');
     }
 }
