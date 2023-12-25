@@ -13,7 +13,9 @@ class WalletController extends Controller
     {
         $wallet = Wallet::findOrFail($id);
         $currencies = Currency::all(); 
-        return view('wallet.index', compact('currencies')); 
+        $totalIncome =  $wallet->incomes->sum('amount');
+        $totalOutcome = $wallet->outcomes->sum('amount');
+        return view('wallet.index', compact('currencies', 'totalIncome', 'totalOutcome')); 
     }
 
     public function transfer_create($current_wallet_id)
