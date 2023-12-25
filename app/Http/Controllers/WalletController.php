@@ -19,9 +19,6 @@ class WalletController extends Controller
     public function transfer_create($current_wallet_id)
     {
         $wallets = Wallet::where('id', '!=', $current_wallet_id)->get(); 
-<<<<<<< HEAD
-        return view('wallet.transfer_create', compact('wallets')); 
-=======
         $current_wallet = Wallet::find($current_wallet_id);
         return view('wallet.transfer_create', compact('wallets', 'current_wallet')); 
     }
@@ -54,7 +51,6 @@ class WalletController extends Controller
         else{
             return redirect()->route('main.index')->with('error', 'Сумма слишком большая');
         }
->>>>>>> c6fe7c54e0608bebd28d664e6bab6ba864f9adbe
     }
 
     public function create_wallet(){
@@ -83,27 +79,31 @@ class WalletController extends Controller
         $wallet = Wallet::findOrFail($wallet_id);
         $currentBalance = $wallet->balance;
         $randomAmount = random_int(1, $currentBalance);
+        $wallet->balance -= $randomAmount;
         $randomCategory = OutcomeCategory::inRandomOrder()->first();
         $outcome = new Outcome;
         $outcome->outcome_category_id = $randomCategory->id;
         $outcome->wallet_id = $wallet_id;
         $outcome->amount = $randomAmount;
         $outcome->save();
+        $wallet->save();
         return redirect()->route('main.index');
     }
 
 
     
-    public function save_random_icome($wallet_id){
+    public function save_random_income($wallet_id){
         $wallet = Wallet::findOrFail($wallet_id);
         $currentBalance = $wallet->balance;
         $randomAmount = random_int(1, $currentBalance*2);//спорный момент, сделал неуточняя
+        $wallet->balance += $randomAmount;
         $randomCategory = IncomeCategory::inRandomOrder()->first();
         $income = new Income;
         $income->income_category_id = $randomCategory->id;
         $income->wallet_id = $wallet_id;
         $income->amount = $randomAmount;
         $income->save();
+        $wallet->save();
         return redirect()->route('main.index');
     }
 

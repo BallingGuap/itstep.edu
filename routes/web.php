@@ -35,19 +35,11 @@ Route::post('/outcome_random_create/{wallet_id}',[WalletController::class,'save_
 
 
 
-<<<<<<< HEAD
-Route::get('/wallet/{id}', [WalletController::class,'wallet_main'])->name('wallet.main')->where('id','[0-9]+');//✓
-Route::get('/transfer_create/{current_wallet_id}', [WalletController::class,'transfer_create'])->name('wallet.transfer_create');//✓
-Route::post('/transfer_create',[WalletController::class,'transfer_save'])->name('wallet.transfer_save');
-Route::get('/wallet/create',[WalletController::class,'create_wallet'])->name('wallet.create');//✓
-Route::post('/wallet/create',[WalletController::class,'save_wallet'])->name('wallet.save');//✓
-=======
 Route::get('/wallet/{id}', [WalletController::class,'wallet_main'])->name('wallet.main')->where('id','[0-9]+');;
 Route::get('/transfer_create/{current_wallet_id}', [WalletController::class,'transfer_create'])->name('wallet.transfer_create')->where('current_wallet_id','[0-9]+');
 Route::post('/transfer_create/{current_wallet_id}',[WalletController::class,'transfer_save'])->name('wallet.transfer_save')->where('current_wallet_id','[0-9]+');
 Route::get('/wallet/create',[WalletController::class,'create_wallet'])->name('wallet.create');
 Route::post('/wallet/create',[WalletController::class,'save_wallet'])->name('wallet.save');
->>>>>>> c6fe7c54e0608bebd28d664e6bab6ba864f9adbe
 
 
 
