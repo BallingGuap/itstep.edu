@@ -14,12 +14,18 @@ class MainController extends Controller
 
     public function currency_edit($currency_id)
     {
+        if($currency_id == 1){
+            return back();
+        }
         $currency = Currency::findOrFail($currency_id);
         return view('main.currency_edit', compact('currency'));
     }
 
     public function currency_update(Request $request, $currency_id)
     {
+        if($currency_id == 1){
+            return back();
+        }
         $validated = $request->validate([
             'exchange_rate_to_tenge' => 'required|numeric'
         ]);
@@ -33,7 +39,7 @@ class MainController extends Controller
     public function index()
     {
         $wallets = Wallet::all();
-        $currencyRates = Currency::all();
+        $currencyRates = Currency::where('id', '!=', 1)->get();
         $walletsBalance = [];
         foreach ($wallets as $wallet) {
             $walletsBalance[$wallet->name] = $wallet->balance * $wallet->currency->exchange_rate_to_tenge;
