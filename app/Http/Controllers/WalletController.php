@@ -85,9 +85,9 @@ class WalletController extends Controller
             $income->save();
             $current_wallet->save();
             $to_wallet->save();
-            return redirect()->route('main.index')->with('error', 'Перевод произведен успешно');
+            return redirect()->route('main.index');
         } else {
-            return redirect()->route('main.index')->with('error', 'Сумма слишком большая');
+            return back()->withErrors(['sum' => 'Недостаточно средств']);
         }
     }
 
@@ -132,7 +132,7 @@ class WalletController extends Controller
         $outcome->amount = $randomAmount;
         $outcome->save();
         $wallet->save();
-        return redirect()->route('main.index');
+        return back();
     }
 
 
@@ -154,7 +154,7 @@ class WalletController extends Controller
         $income->amount = $randomAmount;
         $income->save();
         $wallet->save();
-        return redirect()->route('main.index');
+        return back();
     }
 
 
