@@ -93,7 +93,7 @@ class WalletController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'currency_id' => 'required|numeric',
-            'balance' => 'required|numeric'
+            'balance' => 'required|numeric|gt:0'
         ]);
 
         $wallet = new Wallet();
