@@ -9,7 +9,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     
 </head>
-<body class="flex flex-col body_bg min-h-screen">
+<body class="flex flex-col min-h-screen">
     @include('includes/header')
     @yield('content')
 </body>
