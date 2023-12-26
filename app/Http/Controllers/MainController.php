@@ -34,7 +34,11 @@ class MainController extends Controller
     {
         $wallets = Wallet::all();
         $currencyRates = Currency::all();
-        return view('main.index', compact('wallets', 'currencyRates'));
+        $walletsBalance = [];
+        foreach ($wallets as $wallet) {
+            $walletsBalance[$wallet->name] = $wallet->balance;
+        }
+        return view('main.index', compact('wallets', 'currencyRates', 'walletsBalance'));
     }
 
     public function categories()
