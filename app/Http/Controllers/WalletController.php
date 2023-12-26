@@ -78,7 +78,7 @@ class WalletController extends Controller
             $to_wallet->save();
             return back();
         } else {
-            return back();
+            return back()->withErrors(['sum' => 'Недостаточно средств']);
         }
     }
 
