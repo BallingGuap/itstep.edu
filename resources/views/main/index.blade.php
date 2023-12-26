@@ -70,7 +70,6 @@
                     </li>
                 @endforeach
             </ul>
-            <a href="{{ route('wallet.create') }}" class="text-blue-500 hover:underline mt-4">Создать новый кошелек</a>
         @endif
     </div>
 
@@ -88,7 +87,7 @@
         data: {
           labels: @json(array_keys($walletsBalance)),//,['Wallet0', 'Wallet', 'Wallet2', 'wallet3']
           datasets: [{
-            label: 'Incomes categories',
+            label: 'Баланс кошельков',
             backgroundColor: 'rgba(161, 198, 247, 1)',
             borderColor: 'rgb(47, 128, 237)',
             data: @json(array_values($walletsBalance)),//,[7053, 113, 10, 123]
