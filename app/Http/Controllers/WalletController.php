@@ -13,21 +13,30 @@ class WalletController extends Controller
     {
         $wallet = Wallet::findOrFail($id);
         $currencies = Currency::all();
-        $incomes =   $wallet->incomes()->with('category')->get();
-        $outcomes =  $wallet->outcomes()->with('category')->get();
-        $totalIncome  =  $incomes->sum('amount');
+        $incomes = $wallet->incomes()->with('category')->get();
+        $outcomes = $wallet->outcomes()->with('category')->get();
+        $totalIncome = $incomes->sum('amount');
         $totalOutcome = $outcomes->sum('amount');
 
-        $incomeTotalsWithCategory = $incomes->groupBy('category.name')->map(function ($items) {
-            return $items->sum('amount');
-        });
-        $outcomeTotalsWithCategory = $outcomes->groupBy('category.name')->map(function ($items) {
-            return $items->sum('amount');
-        });
-        $incomeTotalsWithCategory = $incomeTotalsWithCategory->toArray();
-        $outcomeTotalsWithCategory = $outcomeTotalsWithCategory->toArray();
+        $incomeTotalsWithCategory = $incomes
+            ->whereNotNull('category.name')
+            ->groupBy('category.name')
+            ->map(function ($items) {
+                return $items->sum('amount');
+            })
+            ->toArray();
 
-        return view('wallet.index', compact('currencies','wallet', 'totalIncome', 'totalOutcome', 'incomeTotalsWithCategory', 'outcomeTotalsWithCategory'));
+        $outcomeTotalsWithCategory = $outcomes
+            ->whereNotNull('category.name')
+            ->groupBy('category.name')
+            ->map(function ($items) {
+                return $items->sum('amount');
+            })
+            ->toArray();
+
+
+
+        return view('wallet.index', compact('currencies', 'wallet', 'totalIncome', 'totalOutcome', 'incomeTotalsWithCategory', 'outcomeTotalsWithCategory'));
     }
 
     public function transfer_create($current_wallet_id)
