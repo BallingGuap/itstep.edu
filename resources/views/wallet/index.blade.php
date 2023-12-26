@@ -24,7 +24,13 @@
             </ul>
             <div class="row">
                 <div class="card chart-container col-4">
-                    <canvas id="chart"></canvas>
+                    <canvas id="chart_pie"></canvas>
+                </div>
+                <div class="card chart-container col-4">
+                    <canvas id="chart_bar_1"></canvas>
+                </div>
+                <div class="card chart-container col-4">
+                    <canvas id="chart_bar_2"></canvas>
                 </div>
             </div>
         </div>
@@ -34,8 +40,8 @@
 
 @push('chart-scripts')
 <script>
-    const ctx = document.getElementById("chart").getContext('2d');
-    const myChart = new Chart(ctx, {
+    const ctx_pie = document.getElementById("chart_pie").getContext('2d');
+    const myChartPie = new Chart(ctx_pie, {
       type: 'pie',
       data: {
         labels: ['incomes','outcomes'],
@@ -47,6 +53,52 @@
         }]
       },
     });
+
+    const ctx_bar_1 = document.getElementById("chart_bar_1").getContext('2d');
+    const myChartBar_1 = new Chart(ctx_bar_1, {
+        type: 'bar',
+        data: {
+          labels: @json([array_keys($incomeTotalsWithCategory)]),
+          datasets: [{
+            label: 'Incomes categories',
+            backgroundColor: 'rgba(161, 198, 247, 1)',
+            borderColor: 'rgb(47, 128, 237)',
+            data: @json([array_values($incomeTotalsWithCategory)]),
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+              }
+            }]
+          }
+        },
+      });
+      
+    const ctx_bar_2 = document.getElementById("chart_bar_2").getContext('2d');
+    const myChartBar_2 = new Chart(ctx_bar_2, {
+        type: 'bar',
+        data: {
+          labels: @json([array_keys($outcomeTotalsWithCategory)]),
+          datasets: [{
+            label: 'Outcomes categories',
+            backgroundColor: 'rgba(161, 198, 247, 1)',
+            borderColor: 'rgb(47, 128, 237)',
+            data: @json([array_values($outcomeTotalsWithCategory)]),
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+              }
+            }]
+          }
+        },
+      });
 </script>
 @endpush
 
