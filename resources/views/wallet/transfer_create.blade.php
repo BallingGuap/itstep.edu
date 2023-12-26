@@ -11,6 +11,9 @@
                     <input type='text' value='{{$current_wallet->name}}' class='rounded-md border py-2 px-4' readonly />
                 </div>
                 <div class="flex flex-col mt-2">
+                    <label>Доступно: {{$current_wallet->balance}}{{$current_wallet->currency->symbol}}</label>
+                </div>
+                <div class="flex flex-col mt-2">
                     <label>Куда:</label>
                     <select name='wallet_id' class='rounded-md border py-2 px-4' required>
                         @foreach($wallets as $wallet)
