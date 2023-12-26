@@ -36,7 +36,7 @@ class MainController extends Controller
         $currencyRates = Currency::all();
         $walletsBalance = [];
         foreach ($wallets as $wallet) {
-            $walletsBalance[$wallet->name] = $wallet->balance;
+            $walletsBalance[$wallet->name] = $wallet->balance * $wallet->currency->exchange_rate_to_tenge;
         }
         return view('main.index', compact('wallets', 'currencyRates', 'walletsBalance'));
     }
