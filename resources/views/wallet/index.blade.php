@@ -26,14 +26,19 @@
             <div class="mt-8 mb-8">
                 <h2 class="text-2xl font-bold mb-4 text-center">Диаграммы</h2>
                 <div class="mx-auto row">
-                    <div class="card chart-container mx-auto col-4">
+                  <div class="mx-auto col-4 p-1">
+                    <div class="card chart-container">
                         <canvas id="chart_pie"></canvas>
                     </div>
-                    <div class="card chart-container col-4 mx-auto">
-                        <canvas id="chart_bar_2"></canvas>
-                    </div>
-                    <div class="card chart-container  col-4 mx-auto">
+                  </div>
+                  <div class="mx-auto col-4 p-1">
+                    <div class="card chart-container">
                         <canvas id="chart_bar_1"></canvas>
+                    </div>
+                  </div>
+                  <div class="mx-auto col-4 p-1">
+                    <div class="card chart-container">
+                        <canvas id="chart_bar_2"></canvas>
                     </div>
                 </div>
             </div>
@@ -48,26 +53,28 @@
     const myChartPie = new Chart(ctx_pie, {
       type: 'pie',
       data: {
-        labels: ['incomes','outcomes'],
+        labels: ['Доходы','Расходы'],
         datasets: [{
-          label: 'incomes/ountcomes',
-          backgroundColor: 'rgba(161, 198, 247, 1)',
+          label: 'Доходы и Расходы',
+          backgroundColor: ["#A1C6F7", "#FF5252"],
           borderColor: 'rgb(47, 128, 237)',
           data: @json([$totalIncome,$totalOutcome]),
         }]
       },
     });
 
+
+    console.log(@json($incomeTotalsWithCategory));
     const ctx_bar_1 = document.getElementById("chart_bar_1").getContext('2d');
     const myChartBar_1 = new Chart(ctx_bar_1, {
         type: 'bar',
         data: {
-          labels: @json([array_keys($incomeTotalsWithCategory)]),
+          labels: @json(array_keys($incomeTotalsWithCategory)),
           datasets: [{
-            label: 'Incomes categories',
+            label: 'Категории доходов',
             backgroundColor: 'rgba(161, 198, 247, 1)',
             borderColor: 'rgb(47, 128, 237)',
-            data: @json([array_values($incomeTotalsWithCategory)]),
+            data: @json(array_values($incomeTotalsWithCategory)),
           }]
         },
         options: {
@@ -85,12 +92,12 @@
     const myChartBar_2 = new Chart(ctx_bar_2, {
         type: 'bar',
         data: {
-          labels: @json([array_keys($outcomeTotalsWithCategory)]),
+          labels: @json(array_keys($outcomeTotalsWithCategory)),
           datasets: [{
-            label: 'Outcomes categories',
+            label: 'Категории расходов',
             backgroundColor: 'rgba(161, 198, 247, 1)',
             borderColor: 'rgb(47, 128, 237)',
-            data: @json([array_values($outcomeTotalsWithCategory)]),
+            data: @json(array_values($outcomeTotalsWithCategory)),
           }]
         },
         options: {
