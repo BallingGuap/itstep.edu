@@ -76,7 +76,7 @@ class WalletController extends Controller
             $income->save();
             $current_wallet->save();
             $to_wallet->save();
-            return back();
+            return redirect()->route('main.index');
         } else {
             return back()->withErrors(['sum' => 'Недостаточно средств']);
         }
