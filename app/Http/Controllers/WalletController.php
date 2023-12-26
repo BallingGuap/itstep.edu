@@ -50,7 +50,7 @@ class WalletController extends Controller
     {
         $validated = $request->validate([
             'wallet_id' => 'required',
-            'sum' => 'required|numeric'
+            'sum' => 'required|numeric|gt:0'
         ]);
 
         $current_wallet = Wallet::find($current_wallet_id);
