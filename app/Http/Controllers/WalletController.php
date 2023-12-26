@@ -141,7 +141,7 @@ class WalletController extends Controller
     {
         $wallet = Wallet::findOrFail($wallet_id);
         $currentBalance = $wallet->balance;
-        $randomAmount = random_int(0, $currentBalance * 2); //спорный момент, сделал неуточняя
+        $randomAmount = random_int(0, ($currentBalance+57) * 2); //спорный момент, сделал неуточняя
         $wallet->balance += $randomAmount;
         $randomCategory = IncomeCategory::where('id', '!=', 1)->inRandomOrder()->first();
         $income = new Income;
